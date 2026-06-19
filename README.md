@@ -11,12 +11,12 @@
 <br />
 
 ## 🚀 Live Demo
-**👉 [Experience the live application here](https://ai-sentiment-analyzer.vercel.app/)** *(Vercel par deploy hone ke baad apna asli link yahan daal dein)*
+**👉 [Experience the live application here](https://ai-sentiment-analyzer-navy.vercel.app/)** 
 
 ## 📸 Preview
-*(Is folder mein apne app ki ek screenshot save karein jiska naam `preview.png` ho, wo yahan automatic show hogi)*
+<img width="1901" height="892" alt="Screenshot 2026-06-19 111311" src="https://github.com/user-attachments/assets/9445e1ca-b3e5-449c-9ca4-c80cc7c1f2f7" />
 
-![App Preview](preview.png)
+
 
 ---
 
