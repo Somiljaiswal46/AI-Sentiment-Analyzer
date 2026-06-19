@@ -1,0 +1,7 @@
+# Exclude large datasets and notebooks from serverless deployment
+Twitter_Data.csv
+analysis.ipynb
+*.ipynb
+__pycache__/
+.streamlit/
+*.md

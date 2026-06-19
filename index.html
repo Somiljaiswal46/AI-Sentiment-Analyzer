@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SentimentAI | Pro Text Intelligence</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons for modern SVG icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-elements">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar glass-panel">
+        <div class="nav-brand">
+            <i class="ph-fill ph-brain brand-icon"></i>
+            <span>Sentiment<span class="text-gradient">AI</span></span>
+        </div>
+        <div class="nav-links">
+            <a href="#analyze">Analyze</a>
+            <a href="#history">History</a>
+            <a href="#about">About</a>
+        </div>
+        <div class="nav-actions">
+            <button id="themeToggle" class="icon-btn" title="Toggle Theme">
+                <i class="ph ph-sun" id="themeIcon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        
+        <!-- Hero Section -->
+        <header class="hero">
+            <div class="badge">v2.0 Beta</div>
+            <h1 class="hero-title">AI-Powered <br><span class="text-gradient">Sentiment Analysis</span></h1>
+            <p class="hero-subtitle">Instantly decode the emotional tone of any text using advanced neural networks. Designed for professionals, powered by cutting-edge ML.</p>
+        </header>
+
+        <!-- Application Workspace -->
+        <section id="analyze" class="workspace">
+            <!-- Left Column: Input -->
+            <div class="input-section glass-panel">
+                <div class="section-header">
+                    <h2>Input Text</h2>
+                    <div class="controls">
+                        <label class="toggle-switch" title="Analyze automatically while typing">
+                            <input type="checkbox" id="realtimeToggle">
+                            <span class="slider"></span>
+                        </label>
+                        <span class="control-label">Real-time</span>
+                    </div>
+                </div>
+
+                <div class="editor-wrapper">
+                    <textarea id="textInput" placeholder="Paste your text here... e.g. 'The new product update is absolutely fantastic, the team did a great job!'"></textarea>
+                    
+                    <div class="editor-footer">
+                        <div class="metrics">
+                            <span id="wordCount">0 words</span>
+                            <span class="dot">•</span>
+                            <span id="charCount">0 characters</span>
+                        </div>
+                        <div class="action-buttons">
+                            <button id="exampleBtn" class="btn btn-ghost"><i class="ph ph-magic-wand"></i> Example</button>
+                            <button id="pasteBtn" class="btn btn-ghost"><i class="ph ph-clipboard"></i> Paste</button>
+                            <button id="clearBtn" class="btn btn-ghost"><i class="ph ph-trash"></i> Clear</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="analyzeBtn" class="btn btn-primary btn-large">
+                    <i class="ph ph-sparkle"></i> Analyze Sentiment
+                </button>
+            </div>
+
+            <!-- Right Column: Results -->
+            <div class="result-section glass-panel">
+                
+                <!-- Initial State -->
+                <div id="emptyState" class="empty-state">
+                    <i class="ph ph-magnifying-glass empty-icon"></i>
+                    <p>Enter text to see the AI analysis</p>
+                </div>
+
+                <!-- Loading State -->
+                <div id="loadingState" class="loading-state hidden">
+                    <div class="spinner"></div>
+                    <p>Processing neural pathways...</p>
+                </div>
+
+                <!-- Error State -->
+                <div id="errorState" class="error-state hidden">
+                    <i class="ph ph-warning-circle"></i>
+                    <p id="errorMsg">Something went wrong.</p>
+                </div>
+
+                <!-- Result Content -->
+                <div id="resultContent" class="result-content hidden">
+                    <div class="result-header">
+                        <h2>Analysis Result</h2>
+                        <div class="result-actions">
+                            <button id="copyBtn" class="icon-btn" title="Copy to clipboard"><i class="ph ph-copy"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="sentiment-card">
+                        <div class="emoji-container" id="sentimentEmoji">😊</div>
+                        <div class="sentiment-info">
+                            <h3 id="sentimentLabel" class="sentiment-label">Positive</h3>
+                            <p id="sentimentScore" class="sentiment-score">Confidence: 98.5%</p>
+                        </div>
+                    </div>
+
+                    <div class="meters-container">
+                        <div class="meter-group">
+                            <div class="meter-label">
+                                <span>Positive</span>
+                                <span id="posPercent">0%</span>
+                            </div>
+                            <div class="meter-track"><div class="meter-fill fill-pos" id="posFill"></div></div>
+                        </div>
+                        <div class="meter-group">
+                            <div class="meter-label">
+                                <span>Neutral</span>
+                                <span id="neuPercent">0%</span>
+                            </div>
+                            <div class="meter-track"><div class="meter-fill fill-neu" id="neuFill"></div></div>
+                        </div>
+                        <div class="meter-group">
+                            <div class="meter-label">
+                                <span>Negative</span>
+                                <span id="negPercent">0%</span>
+                            </div>
+                            <div class="meter-track"><div class="meter-fill fill-neg" id="negFill"></div></div>
+                        </div>
+                    </div>
+
+                    <!-- Highlighted Text (Visual only) -->
+                    <div class="highlight-section">
+                        <h4>Keyword Context</h4>
+                        <div id="highlightedText" class="highlighted-text">
+                            <!-- Text with spans will be injected here -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- History Section -->
+        <section id="history" class="history-section glass-panel">
+            <div class="section-header">
+                <h2>Analysis History</h2>
+                <button id="exportBtn" class="btn btn-ghost"><i class="ph ph-download-simple"></i> Export CSV</button>
+            </div>
+            
+            <div class="history-table-wrapper">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Text Snippet</th>
+                            <th>Sentiment</th>
+                            <th>Confidence</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyBody">
+                        <!-- History rows will go here -->
+                    </tbody>
+                </table>
+                <div id="emptyHistory" class="empty-history">
+                    No history yet. Your analyses will appear here.
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="about" class="features-grid">
+            <div class="feature-card glass-panel">
+                <i class="ph-fill ph-lightning feature-icon"></i>
+                <h3>Real-time Inference</h3>
+                <p>Get instantaneous predictions as you type, powered by our optimized Vercel edge functions.</p>
+            </div>
+            <div class="feature-card glass-panel">
+                <i class="ph-fill ph-chart-polar feature-icon"></i>
+                <h3>Calibrated Confidence</h3>
+                <p>Not just a label. See the exact probability distribution across Positive, Neutral, and Negative sentiments.</p>
+            </div>
+            <div class="feature-card glass-panel">
+                <i class="ph-fill ph-lock-key feature-icon"></i>
+                <h3>Private & Secure</h3>
+                <p>Your data is processed ephemerally. History is stored locally in your browser and never saved on our servers.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Developed with ❤️</p>
+        <div class="social-links">
+            <a href="mailto:somiljaiswal46@gmail.com" title="Email Me">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            </a>
+            <a href="https://github.com/Somiljaiswal46" target="_blank" rel="noopener noreferrer">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.379.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>
+            </a>
+
+            <a href="https://www.linkedin.com/in/somil-jaiswal-820153333" target="_blank" rel="noopener noreferrer">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
