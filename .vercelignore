@@ -1,7 +1,10 @@
-# Exclude large datasets and notebooks from serverless deployment
+# Exclude large datasets, notebooks, and unused models from serverless deployment
 Twitter_Data.csv
 analysis.ipynb
 *.ipynb
 __pycache__/
 .streamlit/
 *.md
+temp_*.pkl
+sentiment_model.pkl
+tfidf_vectorizer.pkl
